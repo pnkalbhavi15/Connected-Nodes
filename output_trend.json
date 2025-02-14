@@ -1,0 +1,137 @@
+{
+    "2025": {
+        "Diffusion Models": 64,
+        "Transformers & Attention Mechanisms": 34,
+        "Generative Models": 29,
+        "Large Language Models (LLMs)": 21,
+        "Zero-Shot Learning": 19
+    },
+    "2024": {
+        "Diffusion Models": 535,
+        "Transformers & Attention Mechanisms": 283,
+        "Zero-Shot Learning": 205,
+        "Large Language Models (LLMs)": 203,
+        "Generative Models": 186
+    },
+    "2023": {
+        "Diffusion Models": 334,
+        "Transformers & Attention Mechanisms": 261,
+        "Zero-Shot Learning": 141,
+        "Generative Models": 132,
+        "Large Language Models (LLMs)": 101
+    },
+    "2022": {
+        "Transformers & Attention Mechanisms": 250,
+        "Generative Models": 89,
+        "Diffusion Models": 67,
+        "Neural Tracking": 50,
+        "Zero-Shot Learning": 43
+    },
+    "2021": {
+        "Transformers & Attention Mechanisms": 238,
+        "Generative Models": 66,
+        "Zero-Shot Learning": 39,
+        "Neural Tracking": 39,
+        "Variational Models": 31
+    },
+    "2020": {
+        "Transformers & Attention Mechanisms": 169,
+        "Generative Models": 80,
+        "Neural Tracking": 64,
+        "Zero-Shot Learning": 21,
+        "Variational Models": 20
+    },
+    "2019": {
+        "Transformers & Attention Mechanisms": 151,
+        "Generative Models": 69,
+        "Neural Tracking": 44,
+        "Generative Adversarial Networks (GANs)": 28,
+        "Zero-Shot Learning": 17
+    },
+    "2018": {
+        "Transformers & Attention Mechanisms": 88,
+        "Generative Models": 50,
+        "Neural Tracking": 42,
+        "Variational Models": 20,
+        "Zero-Shot Learning": 8
+    },
+    "2017": {
+        "Transformers & Attention Mechanisms": 38,
+        "Generative Models": 33,
+        "Neural Tracking": 29,
+        "Variational Models": 10,
+        "Zero-Shot Learning": 7
+    },
+    "2016": {
+        "Transformers & Attention Mechanisms": 24,
+        "Neural Tracking": 23,
+        "Generative Models": 6,
+        "Zero-Shot Learning": 4,
+        "Variational Models": 3
+    },
+    "2015": {
+        "Neural Tracking": 11,
+        "Transformers & Attention Mechanisms": 6,
+        "Zero-Shot Learning": 3,
+        "Large Language Models (LLMs)": 3,
+        "Variational Models": 2
+    },
+    "2014": {
+        "Neural Tracking": 11,
+        "Transformers & Attention Mechanisms": 3,
+        "Generative Models": 2,
+        "Variational Models": 1
+    },
+    "2013": {
+        "Neural Tracking": 7,
+        "Transformers & Attention Mechanisms": 7,
+        "Diffusion Models": 4,
+        "Generative Models": 2,
+        "Large Language Models (LLMs)": 1
+    },
+    "2012": {
+        "Neural Tracking": 7,
+        "Variational Models": 1,
+        "Diffusion Models": 1
+    },
+    "2011": {
+        "Neural Tracking": 3,
+        "Variational Models": 1
+    },
+    "2010": {
+        "Transformers & Attention Mechanisms": 1,
+        "Neural Tracking": 1
+    },
+    "2009": {
+        "Neural Tracking": 1,
+        "Diffusion Models": 1
+    },
+    "2008": {
+        "Neural Tracking": 1,
+        "Robotics & Dexterous Manipulation": 1
+    },
+    "2007": {
+        "Variational Models": 1
+    },
+    "2006": {
+        "Neural Tracking": 1
+    },
+    "2005": {},
+    "2004": {},
+    "2003": {},
+    "2002": {
+        "Large Language Models (LLMs)": 1
+    },
+    "2001": {},
+    "2000": {
+        "Large Language Models (LLMs)": 2
+    },
+    "1999": {},
+    "1998": {},
+    "1997": {},
+    "1996": {
+        "Robotics & Dexterous Manipulation": 1
+    },
+    "1995": {},
+    "1994": {}
+}
