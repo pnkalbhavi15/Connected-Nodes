@@ -1,0 +1,66 @@
+/* General Styles */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container (Increased Size) */
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 12px;
+    width: 450px; /* Increased width */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); /* Soft glow effect */
+}
+
+/* Form Styles */
+input {
+    display: block;
+    width: 100%;
+    padding: 15px; /* Increased padding */
+    margin: 15px 0; /* More spacing */
+    border: none;
+    border-radius: 8px; /* Softer edges */
+    font-size: 18px; /* Bigger input text */
+}
+
+button {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px; /* Bigger button */
+    margin-top: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px; /* Bigger button text */
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Headings */
+h2 {
+    font-size: 28px; /* Larger heading */
+    margin-bottom: 20px;
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px; /* Increased font size */
+}
+
+a:hover {
+    text-decoration: underline;
+}
