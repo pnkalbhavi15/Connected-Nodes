@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Connected Nodes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashborad.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header with Welcome Message & Logout Button -->
+        <div class="dashboard-header">
+            <div class="welcome-message">Welcome, {{ username }}!</div>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+
+        <div class="main-container" style="display: flex;">
+            <!-- History Container on the Left -->
+            <div class="history-container" style="width: 20%;">
+                <h3>History</h3>
+                <div id="history-list" class="history-list">
+                    <!-- User's past queries and obtained research papers will be listed here dynamically -->
+                </div>
+            </div>
+
+            <!-- Middle Content (Search & Chatbot) -->
+            <div class="content-container" style="width: 80%; display: flex; flex-direction: column; align-items: center;">
+                <!-- Search Bar -->
+                <div class="input-container" style="width: 100%; display: flex; justify-content: center; margin-bottom: 10px;">
+                    <input type="text" id="user-input" class="search-bar" style="width: 60%;" placeholder="Enter your query...">
+                    <button id="submit-btn" class="search-btn">Send</button>
+                </div>
+                
+                <!-- Chatbot Container -->
+                <div class="chatbot-container" style="width: 100%;">
+                    <div id="chat-history" class="chat-history">
+                        <!-- User's past queries and obtained research papers will be appended here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("/get_history")
+                .then(response => response.json())
+                .then(history => {
+                    const historyList = document.getElementById("history-list");
+                    historyList.innerHTML = "";  // Clear existing
+    
+                    history.forEach((entry, index) => {
+                        const historyEntry = document.createElement("div");
+                        historyEntry.className = "history-entry";
+                        historyEntry.innerHTML = `<strong>${index + 1}. ${entry.timestamp}</strong><br>
+                                                  Query: ${entry.query}<br>
+                                                  Papers: ${entry.papers}`;
+                        historyList.appendChild(historyEntry);
+                    });
+                });
+        });
+    
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            const userInput = document.getElementById("user-input").value;
+            if (userInput.trim() !== "") {
+                fetch("/process_query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query: userInput })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const historyList = document.getElementById("history-list");
+                    const historyEntry = document.createElement("div");
+                    historyEntry.className = "history-entry";
+                    historyEntry.innerHTML = `<strong>New - ${new Date().toLocaleString()}</strong><br>
+                                              Query: ${data.query}<br>
+                                              Papers: ${data.papers.join(", ")}`;
+                    historyList.prepend(historyEntry); // Add to top
+                });
+    
+                document.getElementById("user-input").value = "";
+            }
+        });
+    </script>
+    
+</body>
+</html>
