@@ -1,0 +1,182 @@
+{
+    "name": "ML Research",
+    "children": [
+        {
+            "name": "CNN",
+            "children": [
+                {
+                    "name": "estimation",
+                    "children": [
+                        {
+                            "name": "PoseCNN",
+                            "link": "https://rse-lab.cs.washington.edu/projects/posecnn/"
+                        },
+                        {
+                            "name": "YouTube Pose",
+                            "link": "https://www.robots.ox.ac.uk/~vgg/data/pose/index.html"
+                        },
+                        {
+                            "name": "PoseC3D",
+                            "link": "https://kennymckormick.github.io/posec3d/"
+                        },
+                        {
+                            "name": "UAV-Human",
+                            "link": "https://github.com/SUTDCV/UAV-Human"
+                        },
+                        {
+                            "name": "Animal Kingdom",
+                            "link": "https://sutdcv.github.io/Animal-Kingdom/"
+                        }
+                    ]
+                },
+                {
+                    "name": "network",
+                    "children": [
+                        {
+                            "name": "PoseCNN",
+                            "link": "https://rse-lab.cs.washington.edu/projects/posecnn/"
+                        }
+                    ]
+                },
+                {
+                    "name": "neural",
+                    "children": [
+                        {
+                            "name": "PoseCNN",
+                            "link": "https://rse-lab.cs.washington.edu/projects/posecnn/"
+                        },
+                        {
+                            "name": "Sports-1M",
+                            "link": "https://cs.stanford.edu/people/karpathy/deepvideo/"
+                        }
+                    ]
+                },
+                {
+                    "name": "object",
+                    "children": [
+                        {
+                            "name": "PoseCNN",
+                            "link": "https://rse-lab.cs.washington.edu/projects/posecnn/"
+                        },
+                        {
+                            "name": "Objectron",
+                            "link": "https://github.com/google-research-datasets/Objectron/"
+                        },
+                        {
+                            "name": "TrackingNet",
+                            "link": "https://tracking-net.org/"
+                        },
+                        {
+                            "name": "ImageNet-VidVRD",
+                            "link": "https://xdshang.github.io/docs/imagenet-vidvrd.html"
+                        },
+                        {
+                            "name": "YouTube-BoundingBoxes",
+                            "link": "https://research.google.com/youtube-bb/index.html"
+                        }
+                    ]
+                },
+                {
+                    "name": "pose",
+                    "children": [
+                        {
+                            "name": "PoseCNN",
+                            "link": "https://rse-lab.cs.washington.edu/projects/posecnn/"
+                        },
+                        {
+                            "name": "Objectron",
+                            "link": "https://github.com/google-research-datasets/Objectron/"
+                        },
+                        {
+                            "name": "YouTube Pose",
+                            "link": "https://www.robots.ox.ac.uk/~vgg/data/pose/index.html"
+                        },
+                        {
+                            "name": "PoseC3D",
+                            "link": "https://kennymckormick.github.io/posec3d/"
+                        },
+                        {
+                            "name": "UAV-Human",
+                            "link": "https://github.com/SUTDCV/UAV-Human"
+                        },
+                        {
+                            "name": "Animal Kingdom",
+                            "link": "https://sutdcv.github.io/Animal-Kingdom/"
+                        }
+                    ]
+                },
+                {
+                    "name": "supervised",
+                    "children": [
+                        {
+                            "name": "Penn Action",
+                            "link": "http://dreamdragon.github.io/PennAction/"
+                        }
+                    ]
+                },
+                {
+                    "name": "com",
+                    "children": [
+                        {
+                            "name": "PoseC3D",
+                            "link": "https://kennymckormick.github.io/posec3d/"
+                        }
+                    ]
+                },
+                {
+                    "name": "class",
+                    "children": [
+                        {
+                            "name": "ActivityNet",
+                            "link": "http://activity-net.org/index.html"
+                        }
+                    ]
+                },
+                {
+                    "name": "detection",
+                    "children": [
+                        {
+                            "name": "Water",
+                            "link": ""
+                        },
+                        {
+                            "name": "ImageNet-VidVRD",
+                            "link": "https://xdshang.github.io/docs/imagenet-vidvrd.html"
+                        },
+                        {
+                            "name": "YouTube-BoundingBoxes",
+                            "link": "https://research.google.com/youtube-bb/index.html"
+                        }
+                    ]
+                },
+                {
+                    "name": "classification",
+                    "children": [
+                        {
+                            "name": "Sports-1M",
+                            "link": "https://cs.stanford.edu/people/karpathy/deepvideo/"
+                        }
+                    ]
+                },
+                {
+                    "name": "networks",
+                    "children": [
+                        {
+                            "name": "Sports-1M",
+                            "link": "https://cs.stanford.edu/people/karpathy/deepvideo/"
+                        }
+                    ]
+                },
+                {
+                    "name": "learning",
+                    "children": [
+                        {
+                            "name": "20BN-SOMETHING-SOMETHING",
+                            "link": "https://20bn.com/datasets/something-something"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

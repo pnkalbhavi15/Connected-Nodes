@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Machine Learning Tree with Research Papers</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            margin: 0;
+            overflow: hidden;
+            color: white;
+        }
+        .toolbar {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .toolbar input, .toolbar button {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .toolbar button {
+            cursor: pointer;
+            background: #444;
+            color: white;
+        }
+        svg {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        .node circle {
+            stroke: white;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+        .node text {
+            fill: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px black;
+        }
+        .link {
+            stroke: #888;
+            stroke-width: 2;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 8px;
+            border-radius: 5px;
+            color: white;
+            display: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <button onclick="expandAll()">Expand All</button>
+        <button onclick="collapseAll()">Collapse All</button>
+        <input type="text" id="searchQuery" placeholder="Enter search term">
+        <button onclick="searchPapers()">Search</button>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+    <svg></svg>
+
+    <script>
+        let data = {
+            "nodes": [
+                { "id": "Machine Learning" },
+                { "id": "Supervised Learning", "parent": "Machine Learning" },
+                { "id": "Unsupervised Learning", "parent": "Machine Learning" },
+                { "id": "Reinforcement Learning", "parent": "Machine Learning" },
+                { "id": "Deep Learning", "parent": "Machine Learning" },
+                { "id": "Regression", "parent": "Supervised Learning" },
+                { "id": "Classification", "parent": "Supervised Learning" },
+                { "id": "Linear Regression", "parent": "Regression" },
+                { "id": "Logistic Regression", "parent": "Regression" },
+                { "id": "Decision Trees", "parent": "Classification" },
+                { "id": "Random Forest", "parent": "Classification" },
+                { "id": "Clustering", "parent": "Unsupervised Learning" },
+                { "id": "Neural Networks", "parent": "Deep Learning" },
+                { "id": "CNN", "parent": "Neural Networks" },
+                { "id": "RNN", "parent": "Neural Networks" }
+            ],
+            "links": []
+        };
+
+        data.nodes.forEach(node => {
+            if (node.parent) {
+                data.links.push({ "source": node.parent, "target": node.id });
+            }
+        });
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const svg = d3.select("svg").attr("width", width).attr("height", height);
+        const g = svg.append("g");
+
+        svg.call(d3.zoom().on("zoom", (event) => {
+            g.attr("transform", event.transform);
+        }));
+
+        const simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(d => d.id).distance(120))
+            .force("charge", d3.forceManyBody().strength(-500))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        const colorScale = d3.scaleOrdinal(d3.schemeSet2);
+        let currentNodes = [data.nodes[0]];
+        let currentLinks = [];
+        let expandedNodes = new Set(["Machine Learning"]);
+
+        function updateGraph() {
+            const link = g.selectAll(".link")
+                .data(currentLinks, d => `${d.source.id}-${d.target.id}`)
+                .join("line")
+                .attr("class", "link");
+
+            const node = g.selectAll(".node")
+                .data(currentNodes, d => d.id)
+                .join("g")
+                .attr("class", "node")
+                .on("click", handleNodeClick)
+                .on("mouseover", showTooltip)
+                .on("mouseout", hideTooltip)
+                .call(d3.drag()
+                    .on("start", dragStart)
+                    .on("drag", dragged)
+                    .on("end", dragEnd));
+
+            node.append("circle")
+                .attr("r", d => d.parent ? 15 : 30)
+                .attr("fill", d => colorScale(d.parent || d.id));
+
+            node.append("text")
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle")
+                .text(d => d.id);
+
+            simulation.nodes(currentNodes).on("tick", ticked);
+            simulation.force("link").links(currentLinks);
+            simulation.alpha(1).restart();
+        }
+
+        function handleNodeClick(event, d) {
+            if (expandedNodes.has(d.id)) {
+                collapseNode(d.id);
+            } else {
+                expandNode(d.id);
+            }
+        }
+
+        function expandNode(nodeId) {
+            expandedNodes.add(nodeId);
+            const subNodes = data.nodes.filter(n => n.parent === nodeId);
+            currentNodes.push(...subNodes);
+            currentLinks.push(...subNodes.map(subNode => ({ source: nodeId, target: subNode.id })));
+            updateGraph();
+        }
+
+        function collapseNode(nodeId) {
+            const descendants = data.nodes.filter(n => n.parent === nodeId);
+            currentNodes = currentNodes.filter(n => !descendants.includes(n));
+            currentLinks = currentLinks.filter(link => !descendants.some(d => d.id === link.target.id));
+            expandedNodes.delete(nodeId);
+            updateGraph();
+        }
+
+        function expandAll() {
+            currentNodes = [...data.nodes];
+            currentLinks = [...data.links];
+            updateGraph();
+        }
+
+        function collapseAll() {
+            currentNodes = [data.nodes[0]];
+            currentLinks = [];
+            updateGraph();
+        }
+
+        function showTooltip(event, d) {
+            const tooltip = document.getElementById("tooltip");
+            tooltip.innerHTML = `<strong>${d.id}</strong>`;
+            tooltip.style.display = "block";
+            tooltip.style.left = `${event.pageX + 10}px`;
+            tooltip.style.top = `${event.pageY + 10}px`;
+        }
+
+        function hideTooltip() {
+            document.getElementById("tooltip").style.display = "none";
+        }
+
+        function dragStart(event, d) {
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragEnd(event, d) {
+            d.fx = null;
+            d.fy = null;
+        }
+
+        function ticked() {
+            g.selectAll(".link").attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+            g.selectAll(".node").attr("transform", d => `translate(${d.x},${d.y})`);
+        }
+
+        updateGraph();
+    </script>
+</body>
+</html>
