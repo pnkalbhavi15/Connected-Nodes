@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <title>ML Research Knowledge Graph</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f8f9fa; }
+        svg { width: 100vw; height: 100vh; }
+        .node circle { stroke: #333; stroke-width: 2px; }
+        .node text { font-size: 10px; fill: white; text-anchor: middle; alignment-baseline: middle; pointer-events: none; }
+        .link { fill: none; stroke: #bbb; stroke-width: 2px; }
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            visibility: hidden;
+        }
+        .legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h2>ML Research Knowledge Graph</h2>
+    <svg></svg>
+    <div class="tooltip"></div>
+    <div class="legend">
+        <p><strong>Legend:</strong></p>
+        <p><span style="color:#4CAF50;">⬤</span> Category</p>
+        <p><span style="color:#FF9800;">⬤</span> Dataset</p>
+    </div>
+    <script>
+    d3.json("graph_data.json").then(function(data) {
+        const width = window.innerWidth, height = window.innerHeight;
+        const svg = d3.select("svg").attr("width", width).attr("height", height);
+        const g = svg.append("g");
+        const tooltip = d3.select(".tooltip");
+
+        // Create nodes and links
+        const nodes = [];
+        const links = [];
+        function traverse(node) {
+            nodes.push({ id: node.name, type: node.children ? "category" : "dataset", metadata: node.metadata, link: node.link });
+            if (node.children) {
+                node.children.forEach(child => {
+                    links.push({ source: node.name, target: child.name });
+                    traverse(child);
+                });
+            }
+        }
+        traverse(data);
+
+        // Create force-directed layout
+        const simulation = d3.forceSimulation(nodes)
+            .force("charge", d3.forceManyBody().strength(-1000)) // Increase repulsion
+            .force("link", d3.forceLink(links).id(d => d.id).distance(200)) // Increase distance between linked nodes
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Create links
+        const link = g.selectAll(".link")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("stroke", "#ccc")
+            .attr("stroke-width", "2px");
+
+        // Create nodes
+        const node = g.selectAll(".node")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("circle")
+            .attr("r", d => d.type === "category" ? 50 : 35)
+            .style("fill", d => d.type === "category" ? "#4CAF50" : "#FF9800")
+            .style("cursor", "pointer");
+
+        node.append("text")
+            .text(d => d.id)
+            .style("font-size", "12px")
+            .style("fill", "white");
+
+        // Update simulation
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+
+        // Drag events
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Zooming
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 10])
+            .on("zoom", function(event) {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Tooltip events
+        node.on("mouseover", function(event, d) {
+            if (d.type === "dataset") {
+                tooltip.style("visibility", "visible")
+                    .html(`<strong>${d.id}</strong><br>${d.metadata || "No summary available."}`);
+            }
+        })
+        .on("mousemove", function(event) {
+            tooltip.style("top", (event.pageY - 20) + "px")
+                   .style("left", (event.pageX + 10) + "px");
+        })
+        .on("mouseout", function() {
+            tooltip.style("visibility", "hidden");
+        })
+        .on("click", function(event, d) {
+            if (d.type === "dataset" && d.link) {
+                window.open(d.link, "_blank");
+            }
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,269 +1,128 @@
 {
-    "nodes": [
+    "name": "ML Research",
+    "children": [
         {
-            "id": "Research Topics"
-        },
-        {
-            "id": "training generative adversarial network-based vocoder with limited data\n  using augmentation-conditional discriminator",
-            "count": 1,
-            "timestamp": "2024-03-25T06:46:27",
-            "relevance_score": 0.1804,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.5201893448829651
-        },
-        {
-            "id": "heuristic vision pre-training with self-supervised and supervised\n  multi-task learning",
-            "count": 1,
-            "timestamp": "2023-10-11T14:06:04",
-            "relevance_score": 0.1908,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.5162423253059387
-        },
-        {
-            "id": "a survey on super resolution for video enhancement using gan",
-            "count": 1,
-            "timestamp": "2023-12-27T08:41:38",
-            "relevance_score": 0.1289,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.5460474491119385
-        },
-        {
-            "id": "large-scale transfer learning for low-resource spoken language\n  understanding",
-            "count": 1,
-            "timestamp": "2020-08-13T03:43:05",
-            "relevance_score": 0.0974,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.6009796857833862
-        },
-        {
-            "id": "human-inspired explanations for vision transformers and convolutional\n  neural networks",
-            "count": 1,
-            "timestamp": "2024-08-04T19:37:30",
-            "relevance_score": 0.2895,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5305824279785156
-        },
-        {
-            "id": "layer-wise model merging for unsupervised domain adaptation in\n  segmentation tasks",
-            "count": 1,
-            "timestamp": "2024-09-24T07:19:30",
-            "relevance_score": 0.2458,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5095719695091248
-        },
-        {
-            "id": "self-supervised convolutional audio models are flexible acoustic feature\n  learners: a domain specificity and transfer-learning study",
-            "count": 1,
-            "timestamp": "2025-02-04T14:50:12",
-            "relevance_score": 0.1968,
-            "relevance_color": "red",
-            "recent_color": "yellow",
-            "similarity_score": 0.5116279125213623
-        },
-        {
-            "id": "deep layered learning in mir",
-            "count": 1,
-            "timestamp": "2018-04-18T01:30:05",
-            "relevance_score": 0.2741,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5567635893821716
-        },
-        {
-            "id": "wide-residual-inception networks for real-time object detection",
-            "count": 1,
-            "timestamp": "2017-02-04T06:34:31",
-            "relevance_score": 0.4281,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5253626108169556
-        },
-        {
-            "id": "learnable pooling methods for video classification",
-            "count": 1,
-            "timestamp": "2018-10-01T05:02:47",
-            "relevance_score": 0.3101,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5022609233856201
-        },
-        {
-            "id": "utilizing self-supervised representations for mos prediction",
-            "count": 1,
-            "timestamp": "2021-04-07T09:44:36",
-            "relevance_score": 0.1751,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.5821332931518555
-        },
-        {
-            "id": "bayesian recurrent units and the forward-backward algorithm",
-            "count": 1,
-            "timestamp": "2022-07-21T14:00:52",
-            "relevance_score": 0.0885,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.524383008480072
-        },
-        {
-            "id": "deep learning models for representing out-of-vocabulary words",
-            "count": 1,
-            "timestamp": "2020-07-14T19:31:25",
-            "relevance_score": 0.2061,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5153546929359436
-        },
-        {
-            "id": "feature fusion transferability aware transformer for unsupervised domain\n  adaptation",
-            "count": 1,
-            "timestamp": "2024-11-10T22:23:12",
-            "relevance_score": 0.1682,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.5577219724655151
-        },
-        {
-            "id": "is a picture worth a thousand words? delving into spatial reasoning for\n  vision language models",
-            "count": 1,
-            "timestamp": "2024-06-21T03:53:37",
-            "relevance_score": 0.3222,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5426591634750366
-        },
-        {
-            "id": "asv: accelerated stereo vision system",
-            "count": 1,
-            "timestamp": "2019-11-15T18:44:25",
-            "relevance_score": 0.2356,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.5076206922531128
-        },
-        {
-            "id": "domain adaptation for time-series classification to mitigate covariate\n  shift",
-            "count": 1,
-            "timestamp": "2022-04-07T10:27:14",
-            "relevance_score": 0.1358,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.503676176071167
-        },
-        {
-            "id": "new algorithms for computing field of vision over 2d grids",
-            "count": 1,
-            "timestamp": "2021-01-26T20:38:35",
-            "relevance_score": 0.1888,
-            "relevance_color": "red",
-            "recent_color": "red",
-            "similarity_score": 0.5209249258041382
-        },
-        {
-            "id": "some applications of algebraic curves to computational vision",
-            "count": 1,
-            "timestamp": "2001-10-15T18:37:04",
-            "relevance_score": 0.2641,
-            "relevance_color": "yellow",
-            "recent_color": "red",
-            "similarity_score": 0.6126983165740967
-        },
-        {
-            "id": "multimodal autoregressive pre-training of large vision encoders",
-            "count": 1,
-            "timestamp": "2024-11-21T18:31:25",
-            "relevance_score": 0.2484,
-            "relevance_color": "yellow",
-            "recent_color": "yellow",
-            "similarity_score": 0.5274155139923096
-        }
-    ],
-    "links": [
-        {
-            "source": "Research Topics",
-            "target": "training generative adversarial network-based vocoder with limited data\n  using augmentation-conditional discriminator"
-        },
-        {
-            "source": "Research Topics",
-            "target": "heuristic vision pre-training with self-supervised and supervised\n  multi-task learning"
-        },
-        {
-            "source": "Research Topics",
-            "target": "a survey on super resolution for video enhancement using gan"
-        },
-        {
-            "source": "Research Topics",
-            "target": "large-scale transfer learning for low-resource spoken language\n  understanding"
-        },
-        {
-            "source": "Research Topics",
-            "target": "human-inspired explanations for vision transformers and convolutional\n  neural networks"
-        },
-        {
-            "source": "Research Topics",
-            "target": "layer-wise model merging for unsupervised domain adaptation in\n  segmentation tasks"
-        },
-        {
-            "source": "Research Topics",
-            "target": "self-supervised convolutional audio models are flexible acoustic feature\n  learners: a domain specificity and transfer-learning study"
-        },
-        {
-            "source": "Research Topics",
-            "target": "deep layered learning in mir"
-        },
-        {
-            "source": "Research Topics",
-            "target": "wide-residual-inception networks for real-time object detection"
-        },
-        {
-            "source": "Research Topics",
-            "target": "learnable pooling methods for video classification"
-        },
-        {
-            "source": "Research Topics",
-            "target": "utilizing self-supervised representations for mos prediction"
-        },
-        {
-            "source": "Research Topics",
-            "target": "bayesian recurrent units and the forward-backward algorithm"
-        },
-        {
-            "source": "Research Topics",
-            "target": "deep learning models for representing out-of-vocabulary words"
-        },
-        {
-            "source": "Research Topics",
-            "target": "feature fusion transferability aware transformer for unsupervised domain\n  adaptation"
-        },
-        {
-            "source": "Research Topics",
-            "target": "is a picture worth a thousand words? delving into spatial reasoning for\n  vision language models"
-        },
-        {
-            "source": "Research Topics",
-            "target": "asv: accelerated stereo vision system"
-        },
-        {
-            "source": "Research Topics",
-            "target": "domain adaptation for time-series classification to mitigate covariate\n  shift"
-        },
-        {
-            "source": "Research Topics",
-            "target": "new algorithms for computing field of vision over 2d grids"
-        },
-        {
-            "source": "Research Topics",
-            "target": "some applications of algebraic curves to computational vision"
-        },
-        {
-            "source": "Research Topics",
-            "target": "multimodal autoregressive pre-training of large vision encoders"
+            "name": "CNN",
+            "children": [
+                {
+                    "name": "classification",
+                    "children": [
+                        {
+                            "name": "Youtube-8M",
+                            "link": "https://research.google.com/youtube8m/index.html"
+                        },
+                        {
+                            "name": "Sports-1M",
+                            "link": "https://cs.stanford.edu/people/karpathy/deepvideo/"
+                        }
+                    ]
+                },
+                {
+                    "name": "learning",
+                    "children": [
+                        {
+                            "name": "20BN-SOMETHING-SOMETHING",
+                            "link": "https://20bn.com/datasets/something-something"
+                        },
+                        {
+                            "name": "HowTo100M",
+                            "link": "https://www.di.ens.fr/willow/research/howto100m/"
+                        },
+                        {
+                            "name": "ACAV100M",
+                            "link": "https://acav100m.github.io/"
+                        },
+                        {
+                            "name": "OmniSource Web Dataset",
+                            "link": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "network",
+                    "children": [
+                        {
+                            "name": "SUTD-TrafficQA",
+                            "link": "https://github.com/SUTDCV/SUTD-TrafficQA"
+                        }
+                    ]
+                },
+                {
+                    "name": "class",
+                    "children": [
+                        {
+                            "name": "ActivityNet",
+                            "link": "http://activity-net.org/index.html"
+                        }
+                    ]
+                },
+                {
+                    "name": "object",
+                    "children": [
+                        {
+                            "name": "YouCook",
+                            "link": "https://web.eecs.umich.edu/~jjcorso/r/youcook/"
+                        },
+                        {
+                            "name": "ImageNet-VidVRD",
+                            "link": "https://xdshang.github.io/docs/imagenet-vidvrd.html"
+                        },
+                        {
+                            "name": "Objectron",
+                            "link": "https://github.com/google-research-datasets/Objectron/"
+                        }
+                    ]
+                },
+                {
+                    "name": "detection",
+                    "children": [
+                        {
+                            "name": "ImageNet-VidVRD",
+                            "link": "https://xdshang.github.io/docs/imagenet-vidvrd.html"
+                        },
+                        {
+                            "name": "VIL-100",
+                            "link": "https://github.com/yujun0-0/MMA-Net"
+                        }
+                    ]
+                },
+                {
+                    "name": "pose",
+                    "children": [
+                        {
+                            "name": "Objectron",
+                            "link": "https://github.com/google-research-datasets/Objectron/"
+                        }
+                    ]
+                },
+                {
+                    "name": "networks",
+                    "children": [
+                        {
+                            "name": "Sports-1M",
+                            "link": "https://cs.stanford.edu/people/karpathy/deepvideo/"
+                        }
+                    ]
+                },
+                {
+                    "name": "neural",
+                    "children": [
+                        {
+                            "name": "Sports-1M",
+                            "link": "https://cs.stanford.edu/people/karpathy/deepvideo/"
+                        }
+                    ]
+                },
+                {
+                    "name": "supervised",
+                    "children": [
+                        {
+                            "name": "OmniSource Web Dataset",
+                            "link": ""
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
