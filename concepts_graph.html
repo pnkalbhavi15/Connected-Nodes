@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Machine Learning Tree with User Input</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            margin: 0;
+            overflow: hidden;
+            color: white;
+        }
+        .toolbar {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .toolbar input, .toolbar button {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .toolbar button {
+            cursor: pointer;
+            background: #444;
+            color: white;
+        }
+        svg {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        .node circle {
+            stroke: white;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+        .node text {
+            fill: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .link {
+            stroke: #aaa;
+            stroke-width: 2;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar">
+        <button onclick="expandAll()">Expand All</button>
+        <button onclick="collapseAll()">Collapse All</button>
+        <input type="text" id="userInput" placeholder="Enter text here...">
+        <button onclick="extractKeywords()">Extract Keywords</button>
+        <button onclick="extractKeywordsAndMatch()">Extract & Match</button>
+    </div>
+
+    <svg></svg>
+
+    <script>
+        const data = {
+            "nodes": [
+                { "id": "Machine Learning" },
+                { "id": "Supervised Learning", "parent": "Machine Learning" },
+                { "id": "Unsupervised Learning", "parent": "Machine Learning" },
+                { "id": "Reinforcement Learning", "parent": "Machine Learning" },
+                { "id": "Deep Learning", "parent": "Machine Learning" },
+                { "id": "Regression", "parent": "Supervised Learning" },
+                { "id": "Classification", "parent": "Supervised Learning" },
+                { "id": "Linear Regression", "parent": "Regression" },
+                { "id": "Logistic Regression", "parent": "Regression" },
+                { "id": "Decision Trees", "parent": "Classification" },
+                { "id": "Random Forest", "parent": "Classification" },
+                { "id": "Clustering", "parent": "Unsupervised Learning" },
+                { "id": "Neural Networks", "parent": "Deep Learning" },
+                { "id": "CNN", "parent": "Neural Networks" },
+                { "id": "RNN", "parent": "Neural Networks" }
+            ],
+            "links": []
+        };
+
+        data.nodes.forEach(node => {
+            if (node.parent) {
+                data.links.push({ "source": node.parent, "target": node.id });
+            }
+        });
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const svg = d3.select("svg").attr("width", width).attr("height", height);
+        const g = svg.append("g");
+
+        svg.call(d3.zoom().on("zoom", (event) => {
+            g.attr("transform", event.transform);
+        }));
+
+        const simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(d => d.id).distance(120))
+            .force("charge", d3.forceManyBody().strength(-600))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        const colorScale = d3.scaleOrdinal(d3.schemeSet2);
+        let currentNodes = [data.nodes[0]];
+        let currentLinks = [];
+
+        function updateGraph() {
+            const link = g.selectAll(".link")
+                .data(currentLinks, d => `${d.source.id}-${d.target.id}`)
+                .join("line")
+                .attr("class", "link");
+
+            const node = g.selectAll(".node")
+                .data(currentNodes, d => d.id)
+                .join("g")
+                .attr("class", "node")
+                .on("click", handleNodeClick)
+                .call(d3.drag()
+                    .on("start", dragStart)
+                    .on("drag", dragged)
+                    .on("end", dragEnd));
+
+            node.append("circle")
+                .attr("r", d => d.parent ? 20 : 35)
+                .attr("fill", d => colorScale(d.parent || d.id));
+
+            node.append("text")
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle")
+                .text(d => d.id);
+
+            simulation.nodes(currentNodes).on("tick", ticked);
+            simulation.force("link").links(currentLinks);
+            simulation.alpha(1).restart();
+        }
+
+        function handleNodeClick(event, d) {
+            if (expandedNodes.has(d.id)) {
+                collapseNode(d.id);
+            } else {
+                expandNode(d.id);
+            }
+        }
+
+        const expandedNodes = new Set(["Machine Learning"]);
+
+        function expandNode(nodeId) {
+            expandedNodes.add(nodeId);
+            const subNodes = data.nodes.filter(n => n.parent === nodeId);
+            if (subNodes.length > 0) {
+                currentNodes.push(...subNodes);
+                const newLinks = subNodes.map(subNode => ({ source: nodeId, target: subNode.id }));
+                currentLinks.push(...newLinks);
+                updateGraph();
+            }
+        }
+
+        function collapseNode(nodeId) {
+            function getDescendants(parentId) {
+                let descendants = data.nodes.filter(n => n.parent === parentId);
+                descendants.forEach(child => descendants = [...descendants, ...getDescendants(child.id)]);
+                return descendants;
+            }
+            const descendants = getDescendants(nodeId);
+            const descendantIds = new Set(descendants.map(n => n.id));
+            currentNodes = currentNodes.filter(n => !descendantIds.has(n.id));
+            currentLinks = currentLinks.filter(link => !descendantIds.has(link.target.id));
+            expandedNodes.delete(nodeId);
+            descendantIds.forEach(id => expandedNodes.delete(id));
+            updateGraph();
+        }
+
+        function expandAll() { currentNodes = [...data.nodes]; currentLinks = [...data.links]; updateGraph(); }
+        function collapseAll() { currentNodes = [data.nodes[0]]; currentLinks = []; updateGraph(); }
+
+        function dragStart(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragEnd(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        function ticked() {
+            g.selectAll(".link")
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            g.selectAll(".node")
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+        }
+
+        function extractKeywords() {
+            let inputText = document.getElementById("userInput").value;
+            let keywords = inputText.match(/\b\w{5,}\b/g) || []; 
+            console.log("Extracted Keywords:", keywords);
+        }
+
+        updateGraph();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+    <script>
+    const leafNodes = [
+        "Linear Regression", "Logistic Regression", 
+        "Decision Trees", "Random Forest", 
+        "Clustering", "CNN", "RNN"
+    ];
+
+    let useModel;
+    let modelLoaded = false; // Flag to check if the model is loaded
+
+    async function loadUSEModel() {
+        console.log("Loading Universal Sentence Encoder...");
+        useModel = await use.load();
+        modelLoaded = true; // Set the flag to true when the model is loaded
+        console.log("Model Loaded!");
+    }
+
+    async function extractKeywordsAndMatch() {
+        if (!modelLoaded) {
+            console.log("Model not loaded yet!");
+            return; // Exit if the model is not loaded
+        }
+
+        let inputText = document.getElementById("userInput").value;
+        let keywords = inputText.match(/\b\w{5,}\b/g) || []; 
+
+        if (keywords.length === 0) {
+            console.log("No valid keywords found!");
+            return;
+        }
+
+        console.log("Extracted Keywords:", keywords);
+
+        // Get embeddings for keywords and leaf nodes
+        const keywordEmbeddings = await useModel.embed(keywords);
+        const leafNodeEmbeddings = await useModel.embed(leafNodes);
+
+        let results = [];
+
+        for (let i = 0; i < keywords.length; i++) {
+            let maxScore = -1;
+            let bestMatch = null;
+
+            for (let j = 0; j < leafNodes.length; j++) {
+                let score = cosineSimilarity(
+                    keywordEmbeddings.slice([i, 0], [1, -1]), 
+                    leafNodeEmbeddings.slice([j, 0], [1, -1])
+                );
+
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatch = leafNodes[j];
+                }
+            }
+
+            results.push({ keyword: keywords[i], bestMatch, maxScore });
+        }
+
+        console.log("Matching Results:", results);
+
+        results.forEach(({ keyword, bestMatch }) => {
+            if (!bestMatch) return;
+
+            // Find the parent of the best match
+            let parent = data.nodes.find(n => n.id === bestMatch)?.parent;
+            if (!parent) return;
+
+            // Add keyword as a new node under the best match's parent
+            let newNode = { id: keyword, parent: parent };
+            let newLink = { source: parent, target: keyword };
+
+            if (!data.nodes.find(n => n.id === keyword)) {
+                data.nodes.push(newNode);
+                data.links.push(newLink);
+                expandNode(parent);
+            }
+        });
+
+        alert(JSON.stringify(results, null, 2));
+        updateGraph(); // Call updateGraph after modifying the data
+    }
+
+    function cosineSimilarity(vecA, vecB) {
+        let a = vecA.squeeze();  // Remove extra dimensions
+        let b = vecB.squeeze();
+
+        let dotProduct = a.dot(b).dataSync()[0];
+        let normA = Math.sqrt(a.square().sum().dataSync()[0]);
+        let normB = Math.sqrt(b.square().sum().dataSync()[0]);
+
+        return dotProduct / (normA * normB);
+    }
+
+    // Load the model on page load
+    loadUSEModel();
+</script>
+</body>
+</html>
